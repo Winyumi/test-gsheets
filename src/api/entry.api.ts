@@ -35,7 +35,13 @@ entry.post("/test", async (c) => {
   const count = parseInt(c.req.query("count") || "1");
   const maxCount = 100;
 
-  for (let i = 0; i < (count > maxCount ? maxCount : count); i++) {
+  if (count < 1 || count > maxCount) {
+    throw new HTTPException(400, {
+      message: `Count must be between 1 to ${maxCount}`,
+    });
+  }
+
+  for (let i = 0; i < count; i++) {
     entries.push({
       timestamp: new Date().toISOString(),
       uid: randomString(8) + "-test",
