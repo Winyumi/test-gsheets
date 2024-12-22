@@ -10,7 +10,7 @@ if (!Deno.env.get("GCP_CREDENTIALS")) {
   }
 }
 
-export const dev = /true|1/i.test(Deno.env.get("DEV") ?? "");
+export const dev = /^(true|1)$/i.test(Deno.env.get("DEV") ?? "");
 
 export const env = cleanEnv(Deno.env.toObject(), {
   PORT: num({ default: 3000 }),
